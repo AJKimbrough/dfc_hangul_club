@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title th:text="${clubName} + ' — Home'">DFC Hangul — Home</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="container">
+    <h1 th:text="${clubName}">DFC Hangul</h1>
+    <p class="tagline" th:text="${tagline}">Korean language & culture at UTD</p>
+    <nav class="nav">
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+      <a href="/join">Join</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section>
+      <h2>Welcome!</h2>
+      <p>안녕하세요 👋 — Welcome to the DFC Hangul club site built with Spring Boot + Thymeleaf.</p>
+      <p>This is a minimal template you can extend with real content.</p>
+    </section>
+  </main>
+
+  <footer class="container">
+    <small>© <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}">2025</span> DFC Hangul</small>
+  </footer>
+</body>
+</html>
