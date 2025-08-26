@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout(~{::section}, 'DFC Hangul — About', 'about')}">
+<section class="card">
+  <h1>About DFC Hangul</h1>
+
+  <!-- Welcome message -->
+  <p>
+    We are a club on campus that promotes learning, understanding, and respecting Korean language and culture. 
+    Our weekly lessons are led by native Korean speakers who have lived in Korea and can not only teach you 
+    a beautiful language complete with the nuances and quirks of native speaking, but also share the richness 
+    of Korean culture.
+  </p>
+
+  <p>
+    With a wide range of levels and dialects represented, our teachers bring their joy and love for their country 
+    into each lesson. Whether you’re curious about <strong>K-Dramas</strong>, <strong>K-Pop</strong>, or simply want 
+    to broaden your global perspective, DFC Hangul is a welcoming place to learn, connect, and have fun.
+  </p>
+
+  <!-- Meeting info -->
+  <h2>Lessons & Meetings</h2>
+  <p>
+    <strong>Lessons:</strong> Every Friday in <em>FN 2.210</em>  
+    <br>
+    <strong>Meetings:</strong> Biweekly in the same room (<em>FN 2.210</em>)
+  </p>
+
+  <p>
+    We also hold <strong>biweekly meetings</strong> that celebrate Korean culture through food, games, crafts, and 
+    community activities. If you’d like to see what’s coming up next, check out our 
+    <a class="highlight-link" th:href="@{/events}">✨ Events page ✨</a> — it’s the best place to find info on 
+    special activities like cultural holidays, game nights, and food outings.
+  </p>
+  <ul>
+    <li>🎬 Movie nights (watching K-Dramas or Korean films)</li>
+    <li>🍲 Trips to Korean restaurants</li>
+    <li>🎉 Celebrating Korean holidays</li>
+    <li>🎮 Game nights with traditional and modern games</li>
+    <li>🤝 Social hangouts to talk, relax, and build friendships</li>
+  </ul>
+
+  <!-- Photos -->
+  <div class="about-gallery">
+    <figure>
+      <img src="/image/about/club_group1.jpeg" alt="DFC Hangul club group photo 1" />
+    </figure>
+    <figure>
+      <img src="/image/about/club_group2.jpeg" alt="DFC Hangul club group photo 2" />
+    </figure>
+  </div>
+
+  <!-- Discord Invite -->
+  <p class="discord-invite">
+    💬 Want to keep the conversation going?  
+    <a href="https://discord.gg/BscHcmg6" target="_blank" rel="noopener">Join us on Discord</a> — where K-drama debates, K-pop playlists, and midnight tteokbokki cravings all come to life!
+  </p>
+</section>
+</html>

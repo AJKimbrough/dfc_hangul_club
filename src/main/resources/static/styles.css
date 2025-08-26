@@ -1,11 +1,355 @@
-:root { --fg:#111; --bg:#fff; --muted:#666; --accent:#2563eb; }
-* { box-sizing: border-box; }
-body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; color:var(--fg); background:var(--bg); }
-.container { max-width: 900px; margin: 0 auto; padding: 1rem; }
-header { border-bottom: 1px solid #eee; }
-h1 { margin: 0.25rem 0; }
-.tagline { color: var(--muted); margin-top: 0; }
-.nav { display:flex; gap:1rem; margin:0.75rem 0 0.5rem; }
-.nav a { text-decoration:none; color:var(--accent); }
-main h2 { margin-top:1.5rem; }
-footer { border-top:1px solid #eee; margin-top:2rem; }
+/* ---- Theme ---- */
+:root{
+  --bg:#ffffff;
+  --ink:#0d0d0d;
+  --muted:#6b7280;
+  --blue:#0b4dbf;      /* Korean flag blue */
+  --red:#c81d25;       /* Korean flag red  */
+  --ink-soft:#1f2937;
+  --card:#f8fafc;
+  --ring:#e5e7eb;
+  --shadow:0 10px 25px rgba(0,0,0,.06);
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family: "Noto Sans KR", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+.container{max-width:1000px;margin:0 auto;padding:16px}
+
+/* ---- Top ribbon (subtle flag hint) ---- */
+.ribbon{
+  height:6px;
+  background:linear-gradient(90deg,var(--red),var(--blue));
+}
+
+/* ---- Header / Brand ---- */
+.header{
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+  padding:18px 16px; margin-top:6px;
+  border-bottom:1px solid var(--ring);
+  position:sticky; top:0; background:var(--bg); z-index:20;
+  backdrop-filter:saturate(120%) blur(2px);
+}
+
+.brand{display:flex; align-items:center; gap:12px; text-decoration:none}
+.brand-text{display:flex; flex-direction:column; line-height:1.1}
+.brand-kr{font-family:"Gowun Dodum", "Noto Sans KR", sans-serif; font-size:22px; letter-spacing:.5px; color:var(--ink)}
+.brand-en{font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.12em}
+
+/* Taegeuk: CSS-only */
+.taegeuk{
+  width:32px; height:32px; border-radius:50%;
+  background:
+    conic-gradient(from 0deg at 50% 50%, var(--red) 0 180deg, var(--blue) 180deg 360deg);
+  box-shadow: var(--shadow);
+  border:2px solid #fff;
+}
+
+/* ---- Navbar ---- */
+.nav{display:flex; gap:8px; flex-wrap:wrap}
+.nav a{
+  position:relative;
+  text-decoration:none;
+  color:var(--ink-soft);
+  font-weight:600;
+  padding:8px 12px;
+  border-radius:10px;
+}
+.nav a:hover{color:var(--ink)}
+.nav a::after{
+  content:""; position:absolute; left:12px; right:12px; bottom:6px; height:2px;
+  background:linear-gradient(90deg,var(--red),var(--blue));
+  transform:scaleX(0); transform-origin:left; transition:transform .25s ease;
+}
+.nav a:hover::after{transform:scaleX(1)}
+.nav a.active{
+  color:#fff; background:linear-gradient(90deg,var(--blue),var(--red));
+  box-shadow: var(--shadow);
+}
+
+/* ---- Typography / Utilities ---- */
+h1,h2,h3{margin:0 0 10px}
+h1{font-weight:800; letter-spacing:.2px}
+h2{font-weight:700}
+.muted{color:var(--muted)}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--ring);
+  border-radius:16px;
+  padding:18px;
+  box-shadow: var(--shadow);
+}
+
+/* ---- Footer ---- */
+.footer{margin-top:36px; padding:18px 16px; border-top:1px solid var(--ring)}
+.footer-grid{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap}
+
+/* ---- Responsive ---- */
+@media (max-width:720px){
+  .brand-kr{font-size:20px}
+  .nav{gap:4px}
+  .nav a{padding:8px 10px}
+}
+
+.about-gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 18px;
+}
+.about-gallery img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid var(--ring);
+  box-shadow: var(--shadow);
+}
+@media (max-width: 720px) {
+  .about-gallery {
+    grid-template-columns: 1fr;
+  }
+}
+
+.officers-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin-top: 20px;
+}
+
+.officer-card {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 20px;
+  background: var(--card);
+  border: 1px solid var(--ring);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+
+.officer-card img {
+  width: 180px;
+  height: auto;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 2px solid #fff;
+  box-shadow: var(--shadow);
+}
+
+.officer-info h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.officer-info .role {
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.officer-info p {
+  margin: 0 0 10px;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .officer-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .officer-card img {
+    width: 100%;
+    max-width: 250px;
+  }
+}
+
+.contact-tagline {
+  margin-top: 14px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, rgba(11,77,191,0.08), rgba(200,29,37,0.08));
+  font-weight: 600;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+.contact-tagline a {
+  color: var(--blue);
+  font-weight: 700;
+  text-decoration: none;
+}
+.contact-tagline a:hover {
+  text-decoration: underline;
+  color: var(--red);
+}
+
+
+.lesson-placeholder {
+  margin-top: 20px;
+  padding: 16px;
+  border: 2px dashed var(--ring);
+  border-radius: 12px;
+  background: #f9fafb;
+  text-align: center;
+}
+.lesson-placeholder h2 {
+  margin: 0 0 8px;
+}
+
+.club-ideas {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0;
+}
+.club-ideas li {
+  margin: 12px 0;
+  padding-left: 1.2rem;
+  position: relative;
+}
+.club-ideas li::before {
+  content: "✨";
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+h2 {
+  font-family: "Noto Sans KR", system-ui, sans-serif;
+  letter-spacing: 0.5px;
+}
+
+
+.discord-invite {
+  margin-top: 20px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: linear-gradient(90deg, rgba(88,101,242,0.15), rgba(88,101,242,0.05));
+  font-weight: 600;
+  text-align: center;
+}
+
+.discord-invite a {
+  color: #5865F2; /* Discord purple-blue */
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.discord-invite a:hover {
+  text-decoration: underline;
+}
+
+
+/* --- Taste of Korea modal --- */
+.tok-modal.is-hidden { display: none; }
+.tok-modal { position: fixed; inset: 0; z-index: 1000; }
+
+.tok-backdrop {
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,.45);
+  backdrop-filter: blur(2px);
+}
+
+.tok-dialog {
+  position: relative;
+  max-width: 560px;
+  max-height: 85vh;       /* limit height to viewport */
+  overflow-y: auto;       /* scroll if content is taller */
+  margin: 6vh auto;
+  background: var(--bg);
+  border: 1px solid var(--ring);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  padding: 16px;
+  animation: tok-pop .18s ease-out both;
+}
+
+@keyframes tok-pop {
+  from { transform: translateY(8px) scale(.98); opacity: 0; }
+  to   { transform: translateY(0)    scale(1);   opacity: 1; }
+}
+
+.tok-close {
+  position: absolute; top: 8px; right: 8px;
+  border: 0; background: transparent; cursor: pointer;
+  font-size: 18px; line-height: 1; color: var(--ink-soft);
+}
+
+.tok-dialog h3 {
+  margin: 4px 0 10px;
+  font-weight: 800;
+  background: linear-gradient(90deg,var(--blue),var(--red));
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent;
+}
+
+.tok-figure { margin: 0; }
+.tok-figure img {
+  width: 100%;
+  height: auto;
+  max-height: 70vh;   /* keep image within screen height */
+  object-fit: contain; 
+  border-radius: 12px;
+  border: 1px solid var(--ring);
+  box-shadow: var(--shadow);
+}
+.tok-figure figcaption { margin-top: 6px; text-align: center; }
+
+.tok-actions {
+  display: flex; gap: 10px; justify-content: center; margin-top: 12px;
+}
+
+/* Reuse your existing button styles; ensure these exist */
+.btn{
+  display:inline-block; text-decoration:none; font-weight:700;
+  padding:10px 14px; border-radius:10px; color:#fff;
+  background:linear-gradient(90deg,var(--blue),var(--red));
+  box-shadow: var(--shadow);
+}
+.btn:hover{ filter:brightness(1.05) }
+.btn.btn-outline{
+  background:#fff; color:var(--ink); border:1px solid var(--ring);
+}
+.btn.btn-outline:hover{ background:#f9fafb }
+
+
+.tok-modal.is-hidden { display: none; }
+.tok-modal { position: fixed; inset: 0; z-index: 1000; }
+.tok-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.45); backdrop-filter: blur(2px); }
+
+.tok-dialog {
+  position: relative;
+  max-width: 560px;
+  max-height: 85vh;   /* limit height to viewport */
+  overflow-y: auto;   /* scroll inside modal if content is tall */
+  margin: 6vh auto;
+  background: var(--bg);
+  border: 1px solid var(--ring);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  padding: 16px;
+  animation: tok-pop .18s ease-out both;
+}
+
+.tok-figure img {
+  width: 100%;
+  height: auto;
+  max-height: 70vh;   /* keep flyer visible within screen */
+  object-fit: contain;
+  border-radius: 12px;
+  border: 1px solid var(--ring);
+  box-shadow: var(--shadow);
+}
