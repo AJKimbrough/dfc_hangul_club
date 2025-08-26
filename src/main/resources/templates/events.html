@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout(~{::section}, 'DFC Hangul — Events', 'events')}">
+<section class="card">
+  <h1>행사 — Events</h1>
+
+  <div class="event-grid">
+    <figure class="event-media">
+      <img src="/image/taste_of_korea.jpeg"
+           alt="Taste of Korea flyer: Sept 6, 2025 at New Song Church" />
+      <figcaption class="muted">“Taste of Korea” — sample Korean food & fun activities</figcaption>
+    </figure>
+
+    <div class="event-details">
+      <h2>Taste of Korea</h2>
+      <p class="muted">Come try Korean food & enjoy fun activities.</p>
+
+      <ul class="event-list">
+        <li><strong>When:</strong> Sat, <strong>Sep 6, 2025</strong> · <strong>4:30–7:30 PM</strong> (Registration 4:00 PM)</li>
+        <li><strong>Where:</strong> New Song Church,
+          <a href="https://maps.google.com/?q=4220+Fairway+Dr,+Carrollton,+TX+75010" target="_blank" rel="noopener">
+            4220 Fairway Dr, Carrollton, TX 75010
+          </a>
+        </li>
+        <li><strong>Questions:</strong> <a href="mailto:yjkim9@hotmail.com">yjkim9@hotmail.com</a></li>
+      </ul>
+
+      <div class="event-actions">
+        <a class="btn"
+           href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Taste%20of%20Korea&details=Come%20try%20Korean%20food%20%26%20enjoy%20fun%20activities.%20International%20students%20only%20(UTD,%20UNT,%20TWU,%20Brookhaven,%20DBU).%20Questions:%20yjkim9%40hotmail.com&location=New%20Song%20Church%2C%204220%20Fairway%20Dr%2C%20Carrollton%2C%20TX%2075010&dates=20250906T213000Z/20250907T003000Z"
+           target="_blank" rel="noopener">
+          Add to Google Calendar
+        </a>
+        <a class="btn btn-outline"
+           href="https://maps.google.com/?q=4220+Fairway+Dr,+Carrollton,+TX+75010"
+           target="_blank" rel="noopener">
+          Open in Google Maps
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+</html>

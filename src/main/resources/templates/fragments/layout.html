@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      th:fragment="layout(content, pageTitle, activePage)">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title th:text="${pageTitle} ?: 'DFC Hangul'">DFC Hangul</title>
+
+  <!-- Google Fonts: Korean-friendly -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;800&family=Gowun+Dodum&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <!-- Top ribbon -->
+  <div class="ribbon"></div>
+
+  <!-- Header / Navbar -->
+  <header class="container header">
+    <a class="brand" th:href="@{/}">
+      <span class="taegeuk" aria-hidden="true"></span>
+      <span class="brand-text">
+        <span class="brand-kr">DFC 한글</span>
+        <span class="brand-en">DFC Hangul</span>
+      </span>
+    </a>
+    <nav class="nav">
+      <a th:href="@{/about}"    th:classappend="${activePage}=='about' ? 'active'">About</a>
+      <a th:href="@{/officers}" th:classappend="${activePage}=='officers' ? 'active'">Officers</a>
+      <a th:href="@{/lessons}"  th:classappend="${activePage}=='lessons' ? 'active'">Language Lessons</a>
+      <a th:href="@{/club}"     th:classappend="${activePage}=='club' ? 'active'">Club</a>
+      <a th:href="@{/events}"   th:classappend="${activePage}=='events' ? 'active'">Events</a>
+    </nav>
+  </header>
+
+  <!-- Content -->
+  <main class="container">
+    <div th:insert="${content}"></div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="container footer">
+    <div class="footer-grid">
+      <small>© <span th:text="${#dates.format(#dates.createNow(),'yyyy')}">2025</span> DFC Hangul</small>
+      <small class="muted">한국어 & 문화 — Korean language & culture at UTD</small>
+    </div>
+  </footer>
+
+  <!-- Taste of Korea modal (inside body) -->
+  <div id="tok-modal" class="tok-modal is-hidden" role="dialog" aria-modal="true" aria-labelledby="tok-title">
+    <div class="tok-backdrop" data-close="true"></div>
+    <div class="tok-dialog">
+      <button class="tok-close" type="button" aria-label="Close" data-close="true">✕</button>
+
+      <h3 id="tok-title">Taste of Korea</h3>
+      <figure class="tok-figure">
+        <img src="/image/taste_of_korea.jpeg" alt="Taste of Korea flyer" />
+        <figcaption class="muted">
+          Sat, Sep 6, 4:30–7:30 PM · New Song Church · Int’l students only
+        </figcaption>
+      </figure>
+
+      <div class="tok-actions">
+        <a class="btn" href="/events">See details</a>
+        <button class="btn btn-outline" type="button" data-close="true">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  // --- Taste of Korea popup logic ---
+  (function(){
+    // Only show on homepage (/ or /about)
+    if (window.location.pathname !== "/" && window.location.pathname !== "/about") return;
+
+    // Stop showing after the event window ends (UTC)
+    const EVENT_END = new Date('2025-09-07T00:30:00Z').getTime();
+    if (Date.now() > EVENT_END) return;
+
+    // Only once per visitor until event ends
+    const KEY = 'tok_popup_dismissed_v1';
+    if (localStorage.getItem(KEY) === '1') return;
+
+    const modal = document.getElementById('tok-modal');
+    if (!modal) return;
+
+    // Open modal + lock background scroll
+    modal.classList.remove('is-hidden');
+    document.body.style.overflow = 'hidden';
+
+    // Close handlers (buttons or backdrop)
+    modal.addEventListener('click', (e) => {
+      if (e.target.dataset.close === 'true' || e.target.closest('[data-close="true"]')) {
+        modal.classList.add('is-hidden');
+        localStorage.setItem(KEY, '1');
+        document.body.style.overflow = ''; // restore scroll
+      }
+    });
+
+    // Escape key to close
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        modal.classList.add('is-hidden');
+        localStorage.setItem(KEY, '1');
+        document.body.style.overflow = '';
+      }
+    });
+  })();
+  </script>
+</body>
+</html>

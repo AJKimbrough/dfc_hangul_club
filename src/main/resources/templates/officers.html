@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout(~{::section}, 'DFC Hangul — Officers', 'officers')}">
+<section class="card">
+  <h1>Officers</h1>
+
+  <div class="officers-grid">
+    <!-- President -->
+    <article class="officer-card">
+      <div class="officer-photo placeholder" aria-hidden="true">K</div>
+      <div class="officer-info">
+        <h3>Kate</h3>
+        <p class="role">President</p>
+        <p>Leads the club’s vision and operations, and supports our teachers and members.</p>
+      </div>
+    </article>
+
+    <!-- Vice President -->
+    <article class="officer-card">
+      <div class="officer-photo placeholder" aria-hidden="true">A</div>
+      <div class="officer-info">
+        <h3>Alisha</h3>
+        <p class="role">Vice President</p>
+        <p>Coordinates events and helps organize weekly lessons and biweekly meetups.</p>
+      </div>
+    </article>
+
+    <!-- Marketing Director -->
+    <article class="officer-card">
+      <div class="officer-photo placeholder" aria-hidden="true">A</div>
+      <div class="officer-info">
+        <h3>Amelia</h3>
+        <p class="role">Marketing Director</p>
+        <p>Spreads the word on campus—design, socials, and collabs that highlight Korean culture.</p>
+      </div>
+    </article>
+
+    <!-- Secretary & Recruitment Chair (AJ/Amber) -->
+    <article class="officer-card">
+      <img class="officer-photo"
+           src="/image/officers/aj.jpg"
+           alt="Amber Kimbrough — Secretary & Recruitment Chair" />
+      <div class="officer-info">
+        <h3>AJ Kimbrough</h3>
+        <p class="role">Secretary & Recruitment Chair</p>
+        <p>
+          AJ is a senior Software Engineering student and has been a dedicated member of the Korean Club for nearly two years.
+          AJ began learning Korean out of a passion for new languages and cultures, and the club has been a big part of that journey.
+          As Secretary and Recruitment Chair, AJ keeps us organized and welcomes new members.
+        </p>
+        <h4>AJ’s K-Culture Picks 🎶🍲🎬</h4>
+        <ul class="k-culture-list">
+          <li><strong>K-Drama:</strong> <em>Bloodhounds</em></li>
+          <li><strong>Artists:</strong> XG / BTS</li>
+          <li><strong>Movie:</strong> <em>K**l Boksoon</em> / <em>KPOP: Demon Hunters</em></li>
+          <li><strong>Food:</strong> <em>Tteokbokki</em></li>
+          <li><strong>Dream Travel Destination:</strong> Gakwonsa Temple</li>
+        </ul>
+
+        <p class="contact-tagline">
+          📩 Got questions? Want to join the fun?  
+          Or maybe argue with me about why I need to watch <em>better K-Dramas</em>?  
+          Hit me up at <a href="mailto:ank210005@utdallas.edu">ank210005@utdallas.edu</a>
+        </p>
+      </div>
+    </article>
+  </div>
+</section>
+</html>
