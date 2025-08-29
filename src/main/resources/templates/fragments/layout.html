@@ -69,42 +69,48 @@
   </div>
 
   <script>
-  // --- Taste of Korea popup logic ---
-  (function(){
-    // Only show on homepage (/ or /about)
-    if (window.location.pathname !== "/" && window.location.pathname !== "/about") return;
+  /* --- Taste of Korea popup: show on first visit to "/" or "/about" --- */
+  (function () {
+    var path = window.location.pathname;
+    if (path !== "/" && path !== "/about") return;       // only homepage/about
 
-    // Stop showing after the event window ends (UTC)
-    const EVENT_END = new Date('2025-09-07T00:30:00Z').getTime();
+    var EVENT_END = Date.parse("2025-09-07T00:30:00Z");  // stop after event
     if (Date.now() > EVENT_END) return;
 
-    // Only once per visitor until event ends
-    const KEY = 'tok_popup_dismissed_v1';
-    if (localStorage.getItem(KEY) === '1') return;
+    // Bumped key so previously-dismissed users see updated behavior once
+    var KEY = "tok_popup_dismissed_v2";
+    try { if (localStorage.getItem(KEY) === "1") return; } catch (e) {}
 
-    const modal = document.getElementById('tok-modal');
+    var modal = document.getElementById("tok-modal");
     if (!modal) return;
 
-    // Open modal + lock background scroll
-    modal.classList.remove('is-hidden');
-    document.body.style.overflow = 'hidden';
+    // Open after DOM is ready to avoid race conditions
+    function openModal() {
+      modal.classList.remove("is-hidden");
+      document.body.style.overflow = "hidden"; // lock background scroll
+    }
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", openModal, { once: true });
+    } else {
+      requestAnimationFrame(openModal);
+    }
 
-    // Close handlers (buttons or backdrop)
-    modal.addEventListener('click', (e) => {
-      if (e.target.dataset.close === 'true' || e.target.closest('[data-close="true"]')) {
-        modal.classList.add('is-hidden');
-        localStorage.setItem(KEY, '1');
-        document.body.style.overflow = ''; // restore scroll
+    function closeModal() {
+      modal.classList.add("is-hidden");
+      document.body.style.overflow = "";       // restore scroll
+      try { localStorage.setItem(KEY, "1"); } catch (e) {}
+    }
+
+    // Close on backdrop or dedicated close buttons
+    modal.addEventListener("click", function (e) {
+      if (e.target.dataset.close === "true" || e.target.closest("[data-close='true']")) {
+        closeModal();
       }
     });
 
-    // Escape key to close
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        modal.classList.add('is-hidden');
-        localStorage.setItem(KEY, '1');
-        document.body.style.overflow = '';
-      }
+    // Close on Escape
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") closeModal();
     });
   })();
   </script>
