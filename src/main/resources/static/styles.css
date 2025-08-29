@@ -339,3 +339,51 @@ html { font-size: 16px; }
   .tok-close{ top: 6px; right: 6px; }
   .tok-figure img{ max-height: 62vh; }
 }
+
+/* Events layout */
+.event-grid{
+  display:grid;
+  grid-template-columns: 1.15fr 1fr; /* image | details */
+  gap: 20px;
+  align-items: start;
+}
+
+/* Make it stack on tablets/phones */
+@media (max-width: 900px){
+  .event-grid{ grid-template-columns: 1fr; }
+}
+
+/* Keep the flyer responsive and never oversized */
+.event-media{
+  margin:0;
+}
+.event-media img{
+  width:100%;
+  max-width:100%;
+  height:auto;
+  display:block;
+  border-radius:12px;
+  border:1px solid var(--ring);
+  box-shadow: var(--shadow);
+}
+
+/* On small phones, keep the image from towering over everything */
+@media (max-width: 480px){
+  .event-media img{
+    max-height: 60vh;        /* don’t exceed 60% of viewport height */
+    object-fit: contain;     /* keep full image visible */
+  }
+}
+
+/* Tidy the details */
+.event-details h2{ margin-top: 2px; }
+.event-list{
+  margin: 10px 0 16px;
+  padding-left: 0;
+  list-style: none;
+}
+.event-list li{ margin: 8px 0; }
+
+.event-actions{
+  display:flex; flex-wrap:wrap; gap:10px;
+}
