@@ -25,7 +25,11 @@
         <span class="brand-en">DFC Hangul</span>
       </span>
     </a>
-    <nav class="nav">
+
+    <!-- Mobile menu button -->
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">☰</button>
+
+    <nav id="site-nav" class="nav">
       <a th:href="@{/about}"    th:classappend="${activePage}=='about' ? 'active'">About</a>
       <a th:href="@{/officers}" th:classappend="${activePage}=='officers' ? 'active'">Officers</a>
       <a th:href="@{/lessons}"  th:classappend="${activePage}=='lessons' ? 'active'">Language Lessons</a>
@@ -47,7 +51,7 @@
     </div>
   </footer>
 
-  <!-- Taste of Korea modal (inside body) -->
+  <!-- Taste of Korea modal -->
   <div id="tok-modal" class="tok-modal is-hidden" role="dialog" aria-modal="true" aria-labelledby="tok-title">
     <div class="tok-backdrop" data-close="true"></div>
     <div class="tok-dialog">
@@ -68,23 +72,23 @@
     </div>
   </div>
 
+  <!-- Scripts -->
   <script>
   /* --- Taste of Korea popup: show on first visit to "/" or "/about" --- */
   (function () {
     var path = window.location.pathname;
-    if (path !== "/" && path !== "/about") return;       // only homepage/about
+    if (path !== "/" && path !== "/about") return;
 
-    var EVENT_END = Date.parse("2025-09-07T00:30:00Z");  // stop after event
+    var EVENT_END = Date.parse("2025-09-07T00:30:00Z");
     if (Date.now() > EVENT_END) return;
 
-    // Bumped key so previously-dismissed users see updated behavior once
+    // bumped key so users see updated behavior once even if dismissed before
     var KEY = "tok_popup_dismissed_v2";
     try { if (localStorage.getItem(KEY) === "1") return; } catch (e) {}
 
     var modal = document.getElementById("tok-modal");
     if (!modal) return;
 
-    // Open after DOM is ready to avoid race conditions
     function openModal() {
       modal.classList.remove("is-hidden");
       document.body.style.overflow = "hidden"; // lock background scroll
@@ -97,20 +101,34 @@
 
     function closeModal() {
       modal.classList.add("is-hidden");
-      document.body.style.overflow = "";       // restore scroll
+      document.body.style.overflow = ""; // restore scroll
       try { localStorage.setItem(KEY, "1"); } catch (e) {}
     }
 
-    // Close on backdrop or dedicated close buttons
     modal.addEventListener("click", function (e) {
-      if (e.target.dataset.close === "true" || e.target.closest("[data-close='true']")) {
-        closeModal();
-      }
+      if (e.target.dataset.close === "true" || e.target.closest("[data-close='true']")) closeModal();
+    });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeModal(); });
+  })();
+
+  /* --- Mobile nav toggle --- */
+  (function () {
+    var btn = document.querySelector('.nav-toggle');
+    var nav = document.getElementById('site-nav');
+    if (!btn || !nav) return;
+
+    btn.addEventListener('click', function () {
+      var open = nav.classList.toggle('nav-open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      document.body.style.overflow = open ? 'hidden' : '';
     });
 
-    // Close on Escape
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape") closeModal();
+    nav.addEventListener('click', function (e) {
+      if (e.target.tagName === 'A' && nav.classList.contains('nav-open')) {
+        nav.classList.remove('nav-open');
+        btn.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
     });
   })();
   </script>
