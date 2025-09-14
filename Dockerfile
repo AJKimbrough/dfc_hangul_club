@@ -15,8 +15,8 @@ FROM eclipse-temurin:17-jre
 WORKDIR /app
 
 # Render sets PORT at runtime; Spring Boot should bind to it
-ENV PORT=8080
-EXPOSE 8080
+ENV PORT=9090
+EXPOSE 9090
 
 # Copy the *repackaged* Spring Boot jar (exclude any "original-*.jar")
 # If you do produce an original jar, uncomment the longer COPY below.
