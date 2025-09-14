@@ -452,3 +452,14 @@ html { font-size: 16px; }
 @media (hover:hover){
   .lb-prev:hover, .lb-next:hover, .lb-close:hover{ filter:brightness(0.95); }
 }
+
+/* DFC Hangul — Events gallery sizing */
+.gallery{ display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:12px; }
+.gallery-item{ border:1px solid var(--border, #e5e7eb); border-radius:12px; overflow:hidden; background:#fff; }
+.gallery-item img, .gallery-thumb{
+  width:100%;
+  height:220px;       /* cap height */
+  object-fit:cover;   /* crop nicely */
+  display:block;
+}
+@media (max-width:480px){ .gallery-item img, .gallery-thumb{ height:200px } }
