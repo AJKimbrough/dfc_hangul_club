@@ -1,8 +1,8 @@
 <!-- src/main/resources/templates/events.html -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      th:replace="fragments/layout :: layout(~{::main}, 'DFC Hangul — Events', 'events')">
-  <main>
+      th:replace="fragments/layout :: layout(~{::body}, 'DFC Hangul - Events', 'events')">
+  <body>
     <!-- Upcoming Events -->
     <section class="section">
       <h2>Upcoming Events</h2>
@@ -25,7 +25,7 @@
 
     <!-- Taste of Korea Gallery -->
     <section class="section">
-      <h2 th:text="${tokTitle}">Taste of Korea — Event Highlights</h2>
+      <h2 th:text="${tokTitle}">Taste of Korea - Event Highlights</h2>
       <p class="subtitle" th:text="${tokSubtitle}">
         Thanks to everyone who joined! Here are a few moments from the night.
       </p>
@@ -59,7 +59,6 @@
     </div>
 
     <script>
-      // Collect all thumbnails once the page is ready
       let thumbs = [];
       let current = 0;
 
@@ -108,7 +107,6 @@
         cap.textContent = t.caption || '';
       }
 
-      // Close on backdrop click / ESC
       document.addEventListener('click', function (e) {
         const lb = document.getElementById('lb');
         if (!lb.classList.contains('show')) return;
@@ -122,5 +120,5 @@
         if (e.key === 'ArrowLeft')  navLightbox(-1);
       });
     </script>
-  </main>
+  </body>
 </html>
