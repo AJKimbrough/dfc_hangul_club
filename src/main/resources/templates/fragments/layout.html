@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;800&family=Gowun+Dodum&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/styles.css?v=3" />
 </head>
 <body>
   <!-- Top ribbon -->
@@ -52,66 +52,8 @@
     </div>
   </footer>
 
-  <!-- Taste of Korea modal -->
-  <div id="tok-modal" class="tok-modal is-hidden" role="dialog" aria-modal="true" aria-labelledby="tok-title">
-    <div class="tok-backdrop" data-close="true"></div>
-    <div class="tok-dialog">
-      <button class="tok-close" type="button" aria-label="Close" data-close="true">✕</button>
-
-      <h3 id="tok-title">Taste of Korea</h3>
-      <figure class="tok-figure">
-        <img src="/image/taste_of_korea.jpeg" alt="Taste of Korea flyer" />
-        <figcaption class="muted">
-          Sat, Sep 6, 4:30–7:30 PM · New Song Church 
-        </figcaption>
-      </figure>
-
-      <div class="tok-actions">
-        <a class="btn" href="/events">See details</a>
-        <button class="btn btn-outline" type="button" data-close="true">Close</button>
-      </div>
-    </div>
-  </div>
-
   <!-- Scripts -->
   <script>
-  /* --- Taste of Korea popup: show on first visit to "/" or "/about" --- */
-  (function () {
-    var path = window.location.pathname;
-    if (path !== "/" && path !== "/about") return;
-
-    var EVENT_END = Date.parse("2025-09-07T00:30:00Z");
-    if (Date.now() > EVENT_END) return;
-
-    // bumped key so users see updated behavior once even if dismissed before
-    var KEY = "tok_popup_dismissed_v2";
-    try { if (localStorage.getItem(KEY) === "1") return; } catch (e) {}
-
-    var modal = document.getElementById("tok-modal");
-    if (!modal) return;
-
-    function openModal() {
-      modal.classList.remove("is-hidden");
-      document.body.style.overflow = "hidden"; // lock background scroll
-    }
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", openModal, { once: true });
-    } else {
-      requestAnimationFrame(openModal);
-    }
-
-    function closeModal() {
-      modal.classList.add("is-hidden");
-      document.body.style.overflow = ""; // restore scroll
-      try { localStorage.setItem(KEY, "1"); } catch (e) {}
-    }
-
-    modal.addEventListener("click", function (e) {
-      if (e.target.dataset.close === "true" || e.target.closest("[data-close='true']")) closeModal();
-    });
-    document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeModal(); });
-  })();
-
   /* --- Mobile nav toggle --- */
   (function () {
     var btn = document.querySelector('.nav-toggle');
