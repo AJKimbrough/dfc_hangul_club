@@ -29,20 +29,6 @@
         Thanks to everyone who joined! Here are a few moments from the night.
       </p>
 
-      <div class="gallery" th:if="${!#lists.isEmpty(tokGallery)}">
-        <figure class="gallery-item"
-                th:each="g, iStat : ${tokGallery}"
-                th:data-index="${iStat.index}">
-          <img th:src="${g['src']}"
-               th:alt="${g['alt']}"
-               loading="lazy"
-               class="gallery-thumb"
-               onclick="openLightbox(event)"
-               th:data-src="${g['src']}" />
-          <figcaption th:text="${g['caption']}">Caption</figcaption>
-        </figure>
-      </div>
-
       <div class="card" th:if="${#lists.isEmpty(tokGallery)}">
         <p class="muted">Photos coming soon. Follow us on Instagram for updates!</p>
       </div>
