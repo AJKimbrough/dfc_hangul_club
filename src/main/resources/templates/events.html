@@ -1,47 +1,126 @@
+<!-- src/main/resources/templates/events.html -->
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{fragments/layout :: layout(~{::section}, 'DFC Hangul — Events', 'events')}">
-<section class="card">
-  <h1>행사 — Events</h1>
-
-  <div class="event-grid">
-    <figure class="event-media">
-      <img
-        src="/image/taste_of_korea.jpeg"
-        alt="Taste of Korea flyer: Sept 6, 2025 at New Song Church"
-        loading="lazy" decoding="async" />
-      <figcaption class="muted">
-        “Taste of Korea” — sample Korean food & fun activities
-      </figcaption>
-    </figure>
-
-    <div class="event-details">
-      <h2>Taste of Korea</h2>
-      <p class="muted">Come try Korean food & enjoy fun activities.</p>
-
-      <ul class="event-list">
-        <li><strong>When:</strong> Sat, <strong>Sep 6, 2025</strong> · <strong>4:30–7:30 PM</strong> (Registration 4:00 PM)</li>
-        <li><strong>Where:</strong> New Song Church,
-          <a href="https://maps.google.com/?q=4220+Fairway+Dr,+Carrollton,+TX+75010" target="_blank" rel="noopener">
-            4220 Fairway Dr, Carrollton, TX 75010
-          </a>
-        </li>
-        <li><strong>Questions:</strong> <a href="mailto:yjkim9@hotmail.com">yjkim9@hotmail.com</a></li>
-      </ul>
-
-      <div class="event-actions">
-        <a class="btn"
-           href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Taste%20of%20Korea&details=Come%20try%20Korean%20food%20%26%20enjoy%20fun%20activities.%20International%20students%20only%20(UTD,%20UNT,%20TWU,%20Brookhaven,%20DBU).%20Questions:%20yjkim9%40hotmail.com&location=New%20Song%20Church%2C%204220%20Fairway%20Dr%2C%20Carrollton%2C%20TX%2075010&dates=20250906T213000Z/20250907T003000Z"
-           target="_blank" rel="noopener">
-          Add to Google Calendar
-        </a>
-        <a class="btn btn-outline"
-           href="https://maps.google.com/?q=4220+Fairway+Dr,+Carrollton,+TX+75010"
-           target="_blank" rel="noopener">
-          Open in Google Maps
-        </a>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="fragments/layout :: layout(~{::main}, 'DFC Hangul — Events', 'events')">
+  <main>
+    <!-- Upcoming Events -->
+    <section class="section">
+      <h2>Upcoming Events</h2>
+      <div class="grid cards-3">
+        <div class="card" th:each="e : ${events}">
+          <h3 th:text="${e.title}">Title</h3>
+          <p class="muted">
+            <span th:text="${e.date}">Date</span> • <span th:text="${e.time}">Time</span>
+          </p>
+          <p class="muted" th:text="${e.where}">Where</p>
+          <p th:text="${e.desc}">Desc</p>
+          <p><a class="btn" th:href="${e.rsvp}" target="_blank" rel="noreferrer">RSVP</a></p>
+        </div>
+        <div class="card" th:if="${#lists.isEmpty(events)}">
+          <h3>No upcoming events</h3>
+          <p class="muted">Check back soon! Meanwhile, enjoy highlights below.</p>
+        </div>
       </div>
+    </section>
+
+    <!-- Taste of Korea Gallery -->
+    <section class="section">
+      <h2 th:text="${tokTitle}">Taste of Korea — Event Highlights</h2>
+      <p class="subtitle" th:text="${tokSubtitle}">
+        Thanks to everyone who joined! Here are a few moments from the night.
+      </p>
+
+      <div class="gallery" th:if="${!#lists.isEmpty(tokGallery)}">
+        <figure class="gallery-item"
+                th:each="g, iStat : ${tokGallery}"
+                th:data-index="${iStat.index}">
+          <img th:src="${g['src']}"
+               th:alt="${g['alt']}"
+               loading="lazy"
+               class="gallery-thumb"
+               onclick="openLightbox(event)"
+               th:data-src="${g['src']}" />
+          <figcaption th:text="${g['caption']}">Caption</figcaption>
+        </figure>
+      </div>
+
+      <div class="card" th:if="${#lists.isEmpty(tokGallery)}">
+        <p class="muted">Photos coming soon. Follow us on Instagram for updates!</p>
+      </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div id="lb" class="lightbox" aria-hidden="true" role="dialog" aria-label="Photo viewer">
+      <button class="lb-close" type="button" aria-label="Close" onclick="closeLightbox()">✕</button>
+      <button class="lb-prev"  type="button" aria-label="Previous" onclick="navLightbox(-1)">‹</button>
+      <img id="lb-img" alt="" />
+      <button class="lb-next"  type="button" aria-label="Next"     onclick="navLightbox(1)">›</button>
+      <div id="lb-caption" class="lb-caption"></div>
     </div>
-  </div>
-</section>
+
+    <script>
+      // Collect all thumbnails once the page is ready
+      let thumbs = [];
+      let current = 0;
+
+      function collectThumbs() {
+        thumbs = Array.from(document.querySelectorAll('.gallery-thumb'))
+          .map((el, idx) => ({
+            src: el.getAttribute('data-src') || el.src,
+            alt: el.getAttribute('alt') || '',
+            caption: el.closest('figure')?.querySelector('figcaption')?.textContent?.trim() || '',
+            index: idx
+          }));
+      }
+
+      function openLightbox(ev) {
+        if (!thumbs.length) collectThumbs();
+        const el = ev.currentTarget;
+        const src = el.getAttribute('data-src') || el.src;
+        current = thumbs.findIndex(t => t.src === src);
+        if (current < 0) current = 0;
+        renderLightbox();
+        const lb = document.getElementById('lb');
+        lb.classList.add('show');
+        lb.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeLightbox() {
+        const lb = document.getElementById('lb');
+        lb.classList.remove('show');
+        lb.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+
+      function navLightbox(step) {
+        if (!thumbs.length) return;
+        current = (current + step + thumbs.length) % thumbs.length;
+        renderLightbox();
+      }
+
+      function renderLightbox() {
+        const t = thumbs[current];
+        const img = document.getElementById('lb-img');
+        const cap = document.getElementById('lb-caption');
+        img.src = t.src;
+        img.alt = t.alt || 'Event photo';
+        cap.textContent = t.caption || '';
+      }
+
+      // Close on backdrop click / ESC
+      document.addEventListener('click', function (e) {
+        const lb = document.getElementById('lb');
+        if (!lb.classList.contains('show')) return;
+        if (e.target === lb) closeLightbox();
+      });
+      document.addEventListener('keydown', function (e) {
+        const lbShown = document.getElementById('lb').classList.contains('show');
+        if (!lbShown) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowRight') navLightbox(1);
+        if (e.key === 'ArrowLeft')  navLightbox(-1);
+      });
+    </script>
+  </main>
 </html>

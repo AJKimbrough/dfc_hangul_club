@@ -1,11 +1,30 @@
 package com.dfc.hangul;
 
+import com.dfc.hangul.model.Event;
+import com.dfc.hangul.service.EventService;
+import com.dfc.hangul.service.GalleryService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
 @Controller
 public class HomeController {
+
+    private static final Logger log = LoggerFactory.getLogger(HomeController.class);
+
+    private final EventService eventService;
+    private final GalleryService galleryService;
+
+    public HomeController(EventService eventService, GalleryService galleryService) {
+        this.eventService = eventService;
+        this.galleryService = galleryService;
+    }
 
     // Common attributes available to all pages
     private void populateCommon(Model model) {
@@ -55,6 +74,17 @@ public class HomeController {
         populateCommon(model);
         model.addAttribute("activePage", "events");
         model.addAttribute("pageTitle", "DFC Hangul — Events");
+
+        // Ensure non-null model attributes (prevents Thymeleaf 500s if a service returns null)
+        List<Event> events = Optional.ofNullable(eventService.list()).orElseGet(List::of);
+        List<Map<String,String>> gallery = Optional.ofNullable(galleryService.tasteOfKorea2025()).orElseGet(List::of);
+
+        model.addAttribute("events", events);
+        model.addAttribute("tokGallery", gallery);
+        model.addAttribute("tokTitle", "Taste of Korea — Event Highlights");
+        model.addAttribute("tokSubtitle", "Thanks to everyone who joined! Here are a few moments from the night.");
+
+        log.info("GET /events -> events={}, gallery={}", events.size(), gallery.size());
         return "events";
     }
 }
