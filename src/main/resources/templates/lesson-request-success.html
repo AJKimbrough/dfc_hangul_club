@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>Lesson Request Confirmation</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body th:replace="~{fragments/layout :: layout(~{::section}, 'Lesson Request Confirmation', 'lessons')}">
+  <section class="card" style="text-align: center;">
+    <h1>🎉 Request Received!</h1>
+    <p>Thank you, <strong th:text="${name}">Student</strong>!</p>
+    <p>
+      You requested a lesson with <strong th:text="${teacher}">Teacher</strong>
+      at <strong th:text="${time}">Time</strong>.
+    </p>
+    <p>We’ll contact you shortly to confirm your placement.</p>
+    <a th:href="@{/lessons}" class="btn btn-primary" style="margin-top: 1rem;">Back to Lessons</a>
+  </section>
+</body>
+</html>

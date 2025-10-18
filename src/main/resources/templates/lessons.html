@@ -1,31 +1,218 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
       th:replace="~{fragments/layout :: layout(~{::section}, 'DFC Hangul — Language Lessons', 'lessons')}">
+
 <section class="card">
   <h1>Language Lessons</h1>
-
   <p>
-    At DFC Hangul, we believe that everyone learns best when supported at the right level.  
-    Our club offers lessons taught by <strong>native Korean speakers</strong> with a wide range of experience.  
-    Students are matched with teachers according to their skill level — whether you’re a complete beginner, 
-    brushing up on basics, or practicing conversational fluency.
+    Lessons are held every <strong>Friday</strong> in <em>HH 2.502</em>, from <strong>1:00 – 3:00 PM</strong>.  
+    Each teacher can host up to three students per time slot.
   </p>
 
-  <p>
-    <strong>When &amp; Where:</strong>  
-    Lessons are held every <strong>Friday</strong> in <em>HH 2.502</em>, scheduled between <strong>1:00 – 3:00 PM</strong>.  
-    Each student will be paired with an appropriate teacher during that block of time.
-  </p>
+  <style>
+    /* Grid */
+    .chart-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      border: 1px solid var(--ring);
+      border-radius: 10px;
+      overflow: hidden;
+      background: var(--card);
+      margin-top: 1rem;
+      box-shadow: var(--shadow);
+      color: var(--ink);
+    }
+    .chart-row {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr 1fr;
+      padding: 0.8rem 1rem;
+      border-bottom: 1px solid var(--ring);
+      font-size: 0.95rem;
+      align-items: center;
+      background: #ffffff;
+    }
+    .chart-header {
+      background-color: #f4f6fa;
+      font-weight: 700;
+      color: var(--ink);
+      border-bottom: 2px solid var(--ring);
+    }
+    .chart-row:hover { background-color: #f0f4ff; }
+    .chart-row div { padding: 0.4rem; }
 
-  <p>
-    Lessons cover both <em>language</em> and <em>culture</em> — from grammar and vocabulary to everyday expressions, 
-    nuances of polite speech, and insights into Korean customs. Many students also find motivation in connecting 
-    lessons to <strong>K-Dramas, K-Pop lyrics, and cultural activities</strong>, making learning both fun and practical.
-  </p>
+    /* Slot Pills (light mode cohesive) */
+    .slot-pill {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      background: #f8fafc;
+      color: var(--ink);
+      border: 1px solid var(--ring);
+      text-align: center;
+      width: 90px;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    .slot-pill:hover {
+      background: var(--blue);
+      color: #fff;
+      border-color: var(--blue);
+    }
 
-  <div class="lesson-placeholder">
-    <h2>📅 Detailed Schedule & Teachers</h2>
-    <p>A full schedule with specific teacher information will be added here soon. Stay tuned!</p>
+    .slot-full {
+      background: #f3f4f6;
+      color: #999;
+      border: 1px solid #d1d5db;
+      cursor: not-allowed;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.3);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-content {
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 400px;
+      width: 90%;
+      color: var(--ink);
+      border: 1px solid var(--ring);
+      box-shadow: var(--shadow);
+    }
+    .modal-content input {
+      width: 100%;
+      padding: 8px;
+      margin: 8px 0;
+      background: #fff;
+      color: var(--ink);
+      border: 1px solid var(--ring);
+      border-radius: 6px;
+    }
+    .btn-primary {
+      background: linear-gradient(90deg, var(--blue), var(--red));
+      color: white;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--ring);
+      color: var(--ink);
+      border-radius: 8px;
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+  </style>
+
+  <div class="chart-grid">
+    <div class="chart-row chart-header">
+      <div>Teacher</div>
+      <div>Level</div>
+      <div>1:00 PM</div>
+      <div>2:00 PM</div>
+    </div>
+
+    <!-- NC Sung -->
+    <div class="chart-row">
+      <div>NC Sung</div>
+      <div>Beginner</div>
+      <div><button class="slot-pill" onclick="openModal('NC Sung', '1:00 PM')">2 / 3 Open</button></div>
+      <div><button class="slot-pill" onclick="openModal('NC Sung', '2:00 PM')">2 / 3 Open</button></div>
+    </div>
+
+    <!-- YJ Park -->
+    <div class="chart-row">
+      <div>YJ Park</div>
+      <div>Advanced (1–2), Intermediate (2–3)</div>
+      <div><button class="slot-pill" onclick="openModal('YJ Park', '1:00 PM')">2 / 3 Open</button></div>
+      <div><button class="slot-pill" onclick="openModal('YJ Park', '2:00 PM')">1 / 3 Open</button></div>
+    </div>
+
+    <!-- YS Kim -->
+    <div class="chart-row">
+      <div>YS Kim</div>
+      <div>Intermediate (1–2), Beginner (2–3)</div>
+      <div><button class="slot-pill slot-full" disabled>0 / 3 Open</button></div>
+      <div><button class="slot-pill" onclick="openModal('YS Kim', '2:00 PM')">1 / 3 Open</button></div>
+    </div>
+
+    <!-- DY Park -->
+    <div class="chart-row">
+      <div>DY Park</div>
+      <div>Beginner</div>
+      <div><button class="slot-pill" onclick="openModal('DY Park', '1:00 PM')">1 / 3 Open</button></div>
+      <div><button class="slot-pill" onclick="openModal('DY Park', '2:00 PM')">3 / 3 Open</button></div>
+    </div>
+
+    <!-- DJ Xu -->
+    <div class="chart-row">
+      <div>DJ Xu</div>
+      <div>Intermediate (1–2), Intermediate/Advanced (2–3)</div>
+      <div><button class="slot-pill slot-full" disabled>0 / 3 Open</button></div>
+      <div><button class="slot-pill" onclick="openModal('DJ Xu', '2:00 PM')">3 / 3 Open</button></div>
+    </div>
+
+    <!-- NA Go -->
+    <div class="chart-row">
+      <div>NA Go</div>
+      <div>Beginner</div>
+      <div><button class="slot-pill" onclick="openModal('NA Go', '1:00 PM')">1 / 3 Open</button></div>
+      <div><button class="slot-pill" onclick="openModal('NA Go', '2:00 PM')">3 / 3 Open</button></div>
+    </div>
+
+    <!-- SJ Kim -->
+    <div class="chart-row">
+      <div>SJ Kim</div>
+      <div>Intermediate (1–2), Beginner (2–3)</div>
+      <div><button class="slot-pill slot-full" disabled>0 / 3 Open</button></div>
+      <div><button class="slot-pill" onclick="openModal('SJ Kim', '2:00 PM')">3 / 3 Open</button></div>
+    </div>
   </div>
+
+  <!-- Modal -->
+  <div class="modal" id="requestModal">
+    <div class="modal-content">
+      <h3>Request a Lesson Slot</h3>
+      <p id="modal-info"></p>
+      <form th:action="@{/lesson-request}" method="post">
+        <input type="hidden" id="teacherInput" name="teacher">
+        <input type="hidden" id="timeInput" name="time">
+        <label>Your Name:</label>
+        <input type="text" name="name" placeholder="Enter your name" required>
+        <div style="display:flex; justify-content:flex-end; gap:10px;">
+          <button type="button" class="btn-outline" onclick="closeModal()">Cancel</button>
+          <button type="submit" class="btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const modal = document.getElementById('requestModal');
+    const modalInfo = document.getElementById('modal-info');
+    const teacherInput = document.getElementById('teacherInput');
+    const timeInput = document.getElementById('timeInput');
+
+    function openModal(teacher, time) {
+      modal.style.display = 'flex';
+      modalInfo.textContent = `You are requesting ${teacher} at ${time}.`;
+      teacherInput.value = teacher;
+      timeInput.value = time;
+    }
+    function closeModal() { modal.style.display = 'none'; }
+    window.onclick = (e) => { if (e.target === modal) closeModal(); };
+  </script>
+
 </section>
 </html>
