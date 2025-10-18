@@ -26,7 +26,7 @@ public class HomeController {
         this.galleryService = galleryService;
     }
 
-    // Common attributes available to all pages
+    //Common attributes
     private void populateCommon(Model model) {
         model.addAttribute("clubName", "DFC Hangul");
         model.addAttribute("tagline", "Korean language & culture at UTD");
@@ -34,7 +34,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String root(Model model) {
-        return about(model); // show About page as landing page
+        return about(model); 
     }
 
     @GetMapping("/about")
@@ -75,7 +75,6 @@ public class HomeController {
         model.addAttribute("activePage", "events");
         model.addAttribute("pageTitle", "DFC Hangul — Events");
 
-        // Ensure non-null model attributes (prevents Thymeleaf 500s if a service returns null)
         List<Event> events = Optional.ofNullable(eventService.list()).orElseGet(List::of);
         List<Map<String,String>> gallery = Optional.ofNullable(galleryService.tasteOfKorea2025()).orElseGet(List::of);
 

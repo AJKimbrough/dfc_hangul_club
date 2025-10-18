@@ -1,10 +1,9 @@
-/* ---- Theme ---- */
 :root{
   --bg:#ffffff;
   --ink:#0d0d0d;
   --muted:#6b7280;
-  --blue:#0b4dbf;      /* Korean flag blue */
-  --red:#c81d25;       /* Korean flag red  */
+  --blue:#0b4dbf;      
+  --red:#c81d25;       
   --ink-soft:#1f2937;
   --card:#f8fafc;
   --ring:#e5e7eb;
@@ -25,13 +24,13 @@ body{
 
 .container{max-width:1000px;margin:0 auto;padding:16px 14px}
 
-/* ---- Top ribbon (subtle flag hint) ---- */
+
 .ribbon{
   height:6px;
   background:linear-gradient(90deg,var(--red),var(--blue));
 }
 
-/* ---- Header / Brand ---- */
+
 .header{
   display:flex; align-items:center; justify-content:space-between; gap:12px;
   padding:14px 12px; margin-top:6px;
@@ -45,7 +44,7 @@ body{
 .brand-kr{font-family:"Gowun Dodum", "Noto Sans KR", sans-serif; font-size:clamp(18px, 4vw, 22px); letter-spacing:.5px; color:var(--ink)}
 .brand-en{font-size:clamp(10px, 2.7vw, 12px); color:var(--muted); text-transform:uppercase; letter-spacing:.12em}
 
-/* Taegeuk: CSS-only */
+
 .taegeuk{
   width:32px; height:32px; border-radius:50%;
   background: conic-gradient(from 0deg at 50% 50%, var(--red) 0 180deg, var(--blue) 180deg 360deg);
@@ -75,7 +74,7 @@ body{
   box-shadow: var(--shadow);
 }
 
-/* Mobile nav */
+/* Mobile */
 .nav-toggle{
   display:none;
   border:1px solid var(--ring);
@@ -103,10 +102,10 @@ body{
   }
   .nav.nav-open{ display:flex; }
   .nav a{ padding:12px; border-radius:10px; }
-  .nav a::after{ display:none; } /* no underline animation in mobile menu */
+  .nav a::after{ display:none; } 
 }
 
-/* ---- Typography / Utilities ---- */
+
 h1,h2,h3{margin:0 0 10px}
 h1{font-weight:800; letter-spacing:.2px}
 h2{font-weight:700; font-family: "Noto Sans KR", system-ui, sans-serif; letter-spacing: .5px;}
@@ -120,17 +119,17 @@ h2{font-weight:700; font-family: "Noto Sans KR", system-ui, sans-serif; letter-s
   box-shadow: var(--shadow);
 }
 
-/* ---- Footer ---- */
+
 .footer{margin-top:28px; padding:16px 12px; border-top:1px solid var(--ring)}
 .footer-grid{display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap}
 
-/* ---- Responsive base type ---- */
+
 html { font-size: 16px; }
 @media (max-width: 420px){
   html { font-size: 15px; }
 }
 
-/* ---- About gallery ---- */
+/* ---- About ---- */
 .about-gallery {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -183,7 +182,7 @@ html { font-size: 16px; }
   .officer-card img { width: 100%; max-width: 420px; margin: 0 auto; }
 }
 
-/* ---- K-culture lists ---- */
+
 .k-culture-list {
   list-style: none; padding: 0; margin: 10px 0 0;
 }
@@ -200,7 +199,7 @@ html { font-size: 16px; }
   font-weight: bold;
 }
 
-/* ---- Contact pill ---- */
+
 .contact-tagline {
   margin-top: 14px;
   padding: 12px 16px;
@@ -220,7 +219,7 @@ html { font-size: 16px; }
   color: var(--red);
 }
 
-/* ---- Lessons placeholder ---- */
+/* ---- Lessons */
 .lesson-placeholder {
   margin-top: 20px;
   padding: 16px;
@@ -231,15 +230,15 @@ html { font-size: 16px; }
 }
 .lesson-placeholder h2 { margin: 0 0 8px; }
 
-/* ---- Club ideas (legacy list if used) ---- */
+
 .club-ideas { list-style: none; padding: 0; margin: 16px 0; }
 .club-ideas li { margin: 12px 0; padding-left: 1.2rem; position: relative; }
 .club-ideas li::before { content: "✨"; position: absolute; left: 0; top: 0; }
 
-/* Emoji-only highlight rows (no bullets) */
+
 .club-activities p { margin: 6px 0; line-height: 1.5; }
 
-/* ---- Highlight link ---- */
+
 .highlight-link {
   display:inline-block;
   font-weight: 700;
@@ -255,7 +254,7 @@ html { font-size: 16px; }
   color: #fff;
 }
 
-/* ---- Discord invite ---- */
+
 .discord-invite {
   margin-top: 20px;
   padding: 12px 16px;
@@ -275,8 +274,8 @@ html { font-size: 16px; }
 .tok-dialog {
   position: relative;
   max-width: 560px;
-  max-height: 85vh;     /* limit height to viewport */
-  overflow-y: auto;     /* scroll inside modal if content is tall */
+  max-height: 85vh;    
+  overflow-y: auto;     
   margin: 6vh auto;
   background: var(--bg);
   border: 1px solid var(--ring);
@@ -304,7 +303,7 @@ html { font-size: 16px; }
 .tok-figure { margin: 0; }
 .tok-figure img {
   width: 100%; height: auto;
-  max-height: 70vh;           /* keep flyer visible within screen */
+  max-height: 70vh;           
   object-fit: contain;
   border-radius: 12px;
   border: 1px solid var(--ring);
@@ -324,7 +323,7 @@ html { font-size: 16px; }
 .btn.btn-outline{ background:#fff; color:var(--ink); border:1px solid var(--ring); }
 .btn.btn-outline:hover{ background:#f9fafb }
 
-/* Modal: phone-friendly sheet */
+
 @media (max-width: 640px){
   .tok-dialog{
     margin: 0 auto;
@@ -340,20 +339,20 @@ html { font-size: 16px; }
   .tok-figure img{ max-height: 62vh; }
 }
 
-/* Events layout */
+/* Events */
 .event-grid{
   display:grid;
-  grid-template-columns: 1.15fr 1fr; /* image | details */
+  grid-template-columns: 1.15fr 1fr; 
   gap: 20px;
   align-items: start;
 }
 
-/* Make it stack on tablets/phones */
+
 @media (max-width: 900px){
   .event-grid{ grid-template-columns: 1fr; }
 }
 
-/* Keep the flyer responsive and never oversized */
+
 .event-media{
   margin:0;
 }
@@ -367,15 +366,14 @@ html { font-size: 16px; }
   box-shadow: var(--shadow);
 }
 
-/* On small phones, keep the image from towering over everything */
+
 @media (max-width: 480px){
   .event-media img{
-    max-height: 60vh;        /* don’t exceed 60% of viewport height */
-    object-fit: contain;     /* keep full image visible */
+    max-height: 60vh;        
+    object-fit: contain;     
   }
 }
 
-/* Tidy the details */
 .event-details h2{ margin-top: 2px; }
 .event-list{
   margin: 10px 0 16px;
@@ -388,7 +386,7 @@ html { font-size: 16px; }
   display:flex; flex-wrap:wrap; gap:10px;
 }
 
-/* --- Events page gallery --- */
+/* --- Events --- */
 .tok-gallery{
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
@@ -402,8 +400,8 @@ html { font-size: 16px; }
 }
 .tok-gallery .tok-thumb{
   width:100%;
-  height:220px;      /* cap height */
-  object-fit:cover;  /* crop nicely */
+  height:220px;      
+  object-fit:cover;  
   display:block;
   cursor:zoom-in;
 }

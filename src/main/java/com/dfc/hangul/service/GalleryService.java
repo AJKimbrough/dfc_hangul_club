@@ -9,8 +9,7 @@ import java.util.Map;
 @Service
 public class GalleryService {
     public List<Map<String,String>> tasteOfKorea2025(){
-        // Place matching images in /static/img/taste-of-korea/
-        // Update captions as you like.
+
     String base = "/image/";
     return List.of(
         Map.of("src", base + "1.JPEG", "alt", "Group photo at Taste of Korea"),

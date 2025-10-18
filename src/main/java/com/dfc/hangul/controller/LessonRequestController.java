@@ -19,18 +19,18 @@ public class LessonRequestController {
             @RequestParam("time") String time,
             Model model) {
 
-        // Log the incoming data
-        System.out.println("📬 Lesson Request -> " + name + " | " + teacher + " | " + time);
+        //Debug: Log the incoming
+        System.out.println("Lesson Request -> " + name + " | " + teacher + " | " + time);
 
-        // ✅ Send email using the correct method
+        //Send email
         emailService.sendLessonRequestEmail(name, teacher, time);
 
-        // Pass data to confirmation page
+        //Confirmation page
         model.addAttribute("name", name);
         model.addAttribute("teacher", teacher);
         model.addAttribute("time", time);
 
-        // Render confirmation view
+        
         return "lesson-request-success";
     }
 }

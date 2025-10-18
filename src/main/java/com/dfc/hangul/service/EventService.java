@@ -5,5 +5,5 @@ import java.util.List;
 
 @Service
 public class EventService {
-  public List<Event> list() { return List.of(); } // fine if no upcoming events
+  public List<Event> list() { return List.of(); } 
 }

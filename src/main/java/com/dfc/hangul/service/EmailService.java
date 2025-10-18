@@ -28,14 +28,13 @@ public class EmailService {
 
             Content content = new Content("text/plain", bodyText);
 
-            // Build one email
             Mail mail1 = new Mail(from, subject, toAdmin1, content);
             Mail mail2 = new Mail(from, subject, toAdmin2, content);
 
             SendGrid sg = new SendGrid(sendGridApiKey);
             Request request = new Request();
 
-            // Send to first recipient
+            //Send to ank210005
             request.setMethod(Method.POST);
             request.setEndpoint("mail/send");
             request.setBody(mail1.build());
@@ -44,7 +43,7 @@ public class EmailService {
             System.out.println("Loaded SendGrid Key Starts With: " + sendGridApiKey.substring(0,5));
 
 
-            // Send to second recipient
+            //Send to katgodv
             request.setBody(mail2.build());
             Response response2 = sg.api(request);
             System.out.println("Admin 2 send status: " + response2.getStatusCode());
