@@ -62,14 +62,6 @@ DFC_Hangul/
 ├── README.md
 └── .env (not committed)
 
-Configuration
-Environment Variables (Required)
-
-Set these in Render or locally:
- - SENDGRID_API_KEY=(your_key_here)
- - club.admin.emails=ank210005@utdallas.edu,kxg220063@utdallas.edu
- - club.from.email=ank210005@utdallas.edu
-
 Build and Run Locally
  - mvn clean package
  - mvn spring-boot:run
